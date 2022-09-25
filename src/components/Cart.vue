@@ -1,27 +1,92 @@
 
 <template>
-   <div class="cart-wrapper">
-      <div class="cart-title d-none font-heavy">購物籃</div>
-      <div class="item-panel">
-        
-        
-        
-        
-      </div>
+  <div class="cart-wrapper">
+    <div class="cart-title d-none font-heavy">購物籃</div>
+    <div class="item-panel">
+      <div class="item mb-6" v-for="i in formData.carts" :key="i.id">
+        <img :src="i.image" />
+        <div class="item-detail">
+          <div item-detail-wrapper>
+            <div class="item-title mb-6">{{ i.name }}</div>
+            <div class="item-number mb-6">
+              <span @click="removeAmount(i)">
+                <i class="fas fa-minus"></i>
+              </span>
 
-      <div class="shipping d-flex justify-content-between">
-        <p>運費</p>
-        <p class="font-heavy">免費</p>
-      </div>
-      <div class="total d-flex justify-content-between">
-        <p>小記</p>
-        <p class="font-heavy totalPrice">$<span>5298</span></p>
+              <span>{{ i.amount }}</span>
+              <span @click="addAmount(i)">
+                <i class="fas fa-plus"></i>
+              </span>
+            </div>
+          </div>
+          <div class="item-price font-heavy">
+            $<span>{{ i.amount * i.price }}</span>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div class="shipping d-flex justify-content-between">
+      <p>運費</p>
+      <p class="font-heavy">{{formData.shippingFee}}</p>
+    </div>
+    <div class="total d-flex justify-content-between">
+      <p>小記</p>
+      <p class="font-heavy totalPrice">
+        $<span>{{ totalPrice }}</span>
+      </p>
+    </div>
+  </div>
 </template>
+<script>
+export default {
+  props: {
+    initialFormData: {
+      type: Object,
+    },
+  },
+  data() {
+    return {
+      formData: {},
+    };
+  },
+  created() {
+    this.fetchCart();
+  },
+  methods: {
+    fetchCart() {
+      this.formData = this.initialFormData;
+    },
+    addAmount(i) {
+      i.amount = i.amount + 1;
+    },
+    removeAmount(i) {
+      if (i.amount > 1) {
+        i.amount = i.amount - 1;
+      }
+    },
+  },
+  computed: {
+    totalPrice() {
+      return this.formData.carts.reduce((accumulator, object) => {
+        return accumulator + object.amount * object.price;
+      }, 0);
+    },
+  },
+  watch: {
+    formData: {
+      handler: function () {
+        this.formData.totalPrice=this.totalPrice
+        localStorage.setItem('CartInfo', JSON.stringify(this.formData));
+      },
+      deep: true,
+    },
+  },
+};
+</script>
+
 
 <style scoped>
-
 /*標頭內容結束*/
 .main-section {
   margin: 72px 15px 0px 15px;
@@ -36,7 +101,6 @@
   line-height: 38px;
   color: var(--text-color);
 }
-
 
 .form-panel {
   width: 100%;
@@ -83,11 +147,11 @@ select:valid {
   z-index: -1;
 }
 
-input[type=radio] {
+input[type="radio"] {
   -webkit-appearance: none;
   border-radius: 50%;
 }
-input[type=radio]:checked {
+input[type="radio"]:checked {
   box-shadow: inset 0 0 0 6px var(--text-color);
 }
 
@@ -127,7 +191,7 @@ input[type=radio]:checked {
   margin-left: 20px;
   flex: 1;
 }
-.shipping-method .method input[type=radio] {
+.shipping-method .method input[type="radio"] {
   margin: 0px;
   height: 20px;
   width: 20px;
@@ -262,9 +326,8 @@ input[type=radio]:checked {
   border-radius: 8px;
 }
 
-
 @media screen and (min-width: 1024px) {
-   .main-section {
+  .main-section {
     padding: 0 7%;
     display: grid;
     grid-template-columns: 4fr 1fr 4fr;
@@ -335,12 +398,13 @@ input[type=radio]:checked {
     justify-content: start;
     gap: 30px;
   }
-  .item .item-detail .item-price, .item .item-detail .item-title {
+  .item .item-detail .item-price,
+  .item .item-detail .item-title {
     font-size: 16px;
   }
 
   .shipping,
-.total {
+  .total {
     font-size: 14px;
   }
 
@@ -355,8 +419,6 @@ input[type=radio]:checked {
   .main_step_btn .step_btn {
     width: 180px;
   }
-
- 
 }
 </style>
 

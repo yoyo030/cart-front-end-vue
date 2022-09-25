@@ -5,19 +5,19 @@
 <div class="mb-8 title">結帳</div>
   
   <!--  step-control    -->
- <StepBar />
+ <StepBar :initialFormData="formData"/>
 
  <!--  form-control    -->
-  <Form />
+  <Form :initialFormData="formData"/>
 
 
 </div>
 
 <div class="right-section">
-   <Cart />
+   <Cart   :initialFormData="formData" />
 </div>
   <!--  btn-control    --> 
-<BtnControl />
+<BtnControl :initialFormData="formData"/>
 
 </div> 
 </template>
@@ -42,8 +42,10 @@ ccname:"",
 cardnumber:"",
 expdate:"",
 cvv:"",
-totalPrice:"",
-cart:[
+totalPrice:0,
+step:1,
+
+carts:[
   {
     id: 0,
     name: "破壞補丁修身褲",
@@ -77,37 +79,20 @@ export default {
     }
   },
   created() {
-    this.fetchForm()
-    this.formData = {
-      ...this.restaurant,
-      ...this.initialRestaurant
-    }
+    this.fetchForms()
   },
   methods: {
-    fetchForms() {
-      this.formData = dummyData.categories;
-    },
-    handleFileChange(e) {
-      const { files } = e.target;
-
-      if (files.length === 0) {
-        // 使用者沒有選擇上傳的檔案
-        this.restaurant.image = "";
-      } else {
-        // 否則產生預覽圖
-        const imageURL = window.URL.createObjectURL(files[0]);
-        this.restaurant.image = imageURL;
-      }
-    },
-    handleSubmit (e) {
-      const form = e.target  // <form></form>
-      const formData = new FormData(form)
-      //for (let [name, value] of formData.entries()) {
-      //  console.log(name + ': ' + value)
-      //}
-      this.$emit('after-submit', formData)
+    fetchForms() {         
+      this.formData = JSON.parse(localStorage.getItem('CartInfo')) || dummyData;
+      this.formData.step = this.$router.currentRoute.path.slice(-1);     
+      
     }
   },
+  watch:{
+    $route (){
+         this.fetchForms()
+    }
+} 
 }
 </script>
 

@@ -1,22 +1,32 @@
 
 <template>
    <section class="step-indicator">
-    <div class="step">     
-      <div class="step-icon active"></div>         
+    <div class="step">    
+      <div class="step-icon "  :class="{ active: 1<=initialFormData.step }"></div>         
       <div class="text ml-3">寄送地址</div>
     </div>
-    <div class="indicator-line active"></div>
+    <div class="indicator-line " :class="{ active: 1<=initialFormData.step}"></div>
     <div class="step">
-      <div class="step-icon"></div>
+      <div class="step-icon" :class="{ active: 2<=initialFormData.step }"></div>
       <div class="text ml-3">運送方式 </div>
     </div>
-    <div class="indicator-line"></div>
+    <div class="indicator-line" :class="{ active: 2<=initialFormData.step }"></div>
     <div class="step">
-      <div class="step-icon"></div>
+      <div class="step-icon" :class="{ active: 3<=initialFormData.step }"></div>
       <div class="text ml-3">付款方式 </div>
     </div>
   </section>
 </template>
+<script>
+export default {
+    props: {
+    initialFormData: {
+      type: Object   
+    }
+  }   
+}
+</script>
+
 
 <style scoped>
 

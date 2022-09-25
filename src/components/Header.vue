@@ -27,14 +27,14 @@
        <li class="nav-item"><button >
         <img src="https://upload.cc/i1/2022/06/18/fxnQRv.png" class="function_icon" alt="">
       </button></li>
-         <li class="nav-item"><button id="modeBtn">
+         <li class="nav-item"><button id="modeBtn" @click.stop.prevent="handleSubmit">
          <img src="https://upload.cc/i1/2022/06/18/rhURPf.png" class="function_icon theme-mode-dark" alt="">
         </button></li>
       </div>
     </ul>
   </nav>
   
-   <div class="nav_right d-none">
+   <div class="nav_right">
      <ul class="nav_right-list">
       <li class="nav-item"><button >
           <img src="https://upload.cc/i1/2022/06/18/VvRyuD.png
@@ -43,7 +43,7 @@
        <li class="nav-item"><button >
         <img src="https://upload.cc/i1/2022/06/18/fxnQRv.png" class="function_icon" alt="">
       </button></li>
-         <li class="nav-item"><button id="modeBtn">
+         <li class="nav-item" ><button id="modeBtn" @click.stop.prevent="handleSubmit">
          <img src="https://upload.cc/i1/2022/06/18/rhURPf.png" class="function_icon theme-mode-dark" alt="">
         </button></li>
     </ul>
@@ -53,6 +53,33 @@
     
   </div>
 </template>
+<script>
+
+export default {    
+   props: {
+    defaultMode: {
+      type: Object,
+    }
+  },
+  data() {
+    return {
+      mode:Number(this.defaultMode.mode)
+    };
+  },  
+  methods: {   
+    handleSubmit () {
+     
+      if(this.mode == 0)
+      this.mode = 1
+      else
+      this.mode = 0
+
+
+      this.$emit('after-submit', this.mode)
+    }
+  },
+};
+</script>
 
 <style scoped>
 
@@ -137,7 +164,9 @@ header {
   transform-origin: top;
   transform: scale(1, 0);
 }
-
+header .nav-list{
+  width: 100%;
+}
 .navbar-toggle:checked ~ .nav {
   transform: scale(1, 1);
 }
@@ -189,6 +218,9 @@ header {
   visibility: hidden;
   position: absolute;
 }
+ .nav_right {
+    display: none;
+  }
 
 /*標頭內容結束*/
 
@@ -215,6 +247,7 @@ header {
     grid-column: 1/2;
   }
   header .nav-list {
+
     height: 100%;
     display: grid;
     grid-auto-flow: column;

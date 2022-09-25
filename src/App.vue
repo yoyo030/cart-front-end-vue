@@ -1,6 +1,6 @@
 <template >
   <div id="app" >
-     <Header />
+     <Header :defaultMode="{mode : '0'}"  @after-submit="handleAfterSubmit"/>
       <router-view/>
       
     <Footer />
@@ -8,12 +8,30 @@
 </template>
 
 <script>
+import 'bootstrap/dist/css/bootstrap.min.css'
+import "bootstrap";
 import Header from './components/Header'
 import Footer from './components/Footer'
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 export default {
   components: {
     Header,
     Footer
+  },
+   methods: {
+    handleAfterSubmit (mode) {
+
+      if(mode == 0){
+    document.documentElement.setAttribute("data-theme","light");
+
+  }
+  else {
+    document.documentElement.setAttribute("data-theme","dark")
+ 
+  }
+    },
+    
   }
 }
 </script>

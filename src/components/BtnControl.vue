@@ -1,14 +1,72 @@
 
 <template>
 <div class="main_step_btn mx-3 my-8">
-      <button class="step_btn next" id="next-step"> 下一步 <img src="https://imgpile.com/images/5CYzQW.png" alt="" class="ml-4"> </button>
-      <button class="step_btn prev d-none" id="prev-step"><img src="https://imgpile.com/images/5PdWou.png" alt="" class="mr-4">上一步 </button>
-</div>
 
+ 
+
+
+      <button :to="{name: 'check-out-step2'}" class="step_btn next" :class="{ 'd-none': initialFormData.step==3 }" @click="$router.push(`../CheckOut/${Number(initialFormData.step) + 1}`)" id="next-step"> 下一步 <img src="https://imgpile.com/images/5CYzQW.png" alt="" class="ml-4"> </button>
+
+      <button  class="step_btn next" data-target="#exampleModalLong" data-toggle="modal" @click="confirmOrder"  :class="{ 'd-none': initialFormData.step!=3 }"> 送出訂單 </button>
+
+      <button class="step_btn prev" :class="{ 'd-none': 1==initialFormData.step }" id="prev-step" @click="$router.back()"><img src="https://imgpile.com/images/5PdWou.png" alt="" class="mr-4">上一步 </button>
+     
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLongTitle">Order Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{JSON.stringify(this.initialFormData)}} </p>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+      
+</div>
 </template>
 
-<style scoped>
+<script>
 
+
+
+export default {
+    props: {
+    initialFormData: {
+      type: Object   
+    }
+  },
+  methods:{
+    confirmOrder(){    
+      console.log(JSON.stringify(this.initialFormData))
+    }
+  }  
+}
+</script>
+
+<style scoped>
+.modal-content{
+ background-color:var(--background-color);
+     color: var(--text-color);
+}
+.modal-body p {
+    word-wrap: break-word;
+     color: var(--text-color);
+   
+}
 /*標頭內容結束*/
 .main-section {
   margin: 72px 15px 0px 15px;
