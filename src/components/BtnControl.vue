@@ -1,41 +1,11 @@
+
 <template>
- <div class="main-section">
-
-<div class="left-section" >
-<div class="mb-8 title">結帳</div>
-  
-  <!--  step-control    -->
- <StepBar />
-
- <!--  form-control    -->
-  <Form />
-
-
+<div class="main_step_btn mx-3 my-8">
+      <button class="step_btn next" id="next-step"> 下一步 <img src="https://imgpile.com/images/5CYzQW.png" alt="" class="ml-4"> </button>
+      <button class="step_btn prev d-none" id="prev-step"><img src="https://imgpile.com/images/5PdWou.png" alt="" class="mr-4">上一步 </button>
 </div>
 
-<div class="right-section">
-   <Cart />
-</div>
-  <!--  btn-control    --> 
-<BtnControl />
-
-</div> 
 </template>
-
-<script>
-import StepBar from '.././components/StepBar'
-import Form from '.././components/Form'
-import Cart from '.././components/Cart'
-import BtnControl from '.././components/BtnControl'
-export default {
-  components: {
-    StepBar,
-    Form,
-    Cart,
-    BtnControl
-  }
-}
-</script>
 
 <style scoped>
 

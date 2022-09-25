@@ -1,41 +1,24 @@
+
 <template>
- <div class="main-section">
+   <div class="cart-wrapper">
+      <div class="cart-title d-none font-heavy">購物籃</div>
+      <div class="item-panel">
+        
+        
+        
+        
+      </div>
 
-<div class="left-section" >
-<div class="mb-8 title">結帳</div>
-  
-  <!--  step-control    -->
- <StepBar />
-
- <!--  form-control    -->
-  <Form />
-
-
-</div>
-
-<div class="right-section">
-   <Cart />
-</div>
-  <!--  btn-control    --> 
-<BtnControl />
-
-</div> 
+      <div class="shipping d-flex justify-content-between">
+        <p>運費</p>
+        <p class="font-heavy">免費</p>
+      </div>
+      <div class="total d-flex justify-content-between">
+        <p>小記</p>
+        <p class="font-heavy totalPrice">$<span>5298</span></p>
+      </div>
+    </div>
 </template>
-
-<script>
-import StepBar from '.././components/StepBar'
-import Form from '.././components/Form'
-import Cart from '.././components/Cart'
-import BtnControl from '.././components/BtnControl'
-export default {
-  components: {
-    StepBar,
-    Form,
-    Cart,
-    BtnControl
-  }
-}
-</script>
 
 <style scoped>
 
