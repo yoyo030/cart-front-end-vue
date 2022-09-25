@@ -27,13 +27,87 @@ import StepBar from '.././components/StepBar'
 import Form from '.././components/Form'
 import Cart from '.././components/Cart'
 import BtnControl from '.././components/BtnControl'
+
+
+const dummyData = {
+
+salutation:"",
+username:"",
+phone:"",
+email:"",
+city:"",
+addr:"",
+shippingFee:0,
+ccname:"",
+cardnumber:"",
+expdate:"",
+cvv:"",
+totalPrice:"",
+cart:[
+  {
+    id: 0,
+    name: "破壞補丁修身褲",
+    price: 3999,
+    image: "https://upload.cc/i1/2022/06/19/IDbTEW.jpg",
+    amount:1
+  },
+  
+  {
+    id: 1,
+    name: "刷色直筒牛仔褲",
+    price: 1299,
+    image: "https://upload.cc/i1/2022/06/19/VA8JqY.jpg",
+    amount:1
+  }
+]
+}
+
+
+
 export default {
   components: {
     StepBar,
     Form,
     Cart,
     BtnControl
-  }
+  },
+  data(){
+    return{
+    formData:{}
+    }
+  },
+  created() {
+    this.fetchForm()
+    this.formData = {
+      ...this.restaurant,
+      ...this.initialRestaurant
+    }
+  },
+  methods: {
+    fetchForms() {
+      this.formData = dummyData.categories;
+    },
+    handleFileChange(e) {
+      const { files } = e.target;
+
+      if (files.length === 0) {
+        // 使用者沒有選擇上傳的檔案
+        this.restaurant.image = "";
+      } else {
+        // 否則產生預覽圖
+        const imageURL = window.URL.createObjectURL(files[0]);
+        this.restaurant.image = imageURL;
+      }
+    },
+    handleSubmit (e) {
+      const form = e.target  // <form></form>
+      const formData = new FormData(form)
+      //for (let [name, value] of formData.entries()) {
+      //  console.log(name + ': ' + value)
+      //}
+      this.$emit('after-submit', formData)
+    }
+  },
 }
 </script>
 

@@ -1,11 +1,9 @@
-<template>
-  <div id="app">
+<template >
+  <div id="app" >
      <Header />
-    
-    <br/><br/> <br/><br/><br/>
       <router-view/>
-        
-           <Footer />
+      
+    <Footer />
   </div>
 </template>
 
@@ -21,8 +19,16 @@ export default {
 </script>
 
 <style>
+
+
 /* reset css */
 @import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+#app{
+   position: absolute;
+    top: 40px; /* Header Height */
+    bottom: 20px; /* Footer Height */
+    width: 100%;
+}
 body {
   margin: 0;
   padding: 0;
@@ -686,7 +692,7 @@ html {
 }
 
 body {
-  height: 100%;
+  
   background: var(--background-color);
   color: var(--text-color);
   font-family: "Noto Sans TC";
